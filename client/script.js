@@ -3,7 +3,7 @@ async function calculateBMI(){
 let height=document.getElementById("height").value;
 let weight=document.getElementById("weight").value;
 
-const response = await fetch("http://localhost:5000/bmi",{
+const response = await fetch("https://sample-bmi.onrender.com/bmi",{
 
 method:"POST",
 
