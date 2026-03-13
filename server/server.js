@@ -5,12 +5,19 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.get("/", (req,res)=>{
+    res.send("BMI API is running");
+});
 
 app.post("/bmi", (req,res)=>{
 
-    const height = req.body.height;
-    const weight = req.body.weight;
-
+    const { weight, height } = req.body;
+    if(!weight || !height){
+        return res.status(400).json({ error: "Weight and height are required" });
+    }
+    if(weight <= 0 || height <= 0){
+        return res.status(400).json({ error: "Weight and height must be positive numbers" });
+    }
     const h = height / 100;
 
     const bmi = weight/(h*h);
@@ -25,10 +32,24 @@ app.post("/bmi", (req,res)=>{
         category="Overweight";
     else
         category="Obese";
+    let advice;
+    if(category === "Underweight"){
+        advice = "You are underweight. Consider eating a balanced diet and consult a healthcare provider.";
+    }
+    else if(category === "Normal"){
+        advice = "You have a normal weight. Maintain a healthy lifestyle with regular exercise and a balanced diet.";
+    }
+    else if(category === "Overweight"){
+        advice = "You are overweight. Consider a healthy diet and regular exercise to manage your weight.";
+    }
+    else{
+        advice = "Consult a Doctor and reduce weight";
 
     res.json({
         bmi: bmi.toFixed(2),
-        category: category
+        category: category,
+        advice: advice
+
     });
 
 });
