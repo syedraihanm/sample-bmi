@@ -26,4 +26,7 @@ document.getElementById("bmiResult").innerText =
 document.getElementById("bmiCategory").innerText =
 data.category;
 
+document.getElementById("bmiAdvice").innerText =
+data.advice;
+
 }
