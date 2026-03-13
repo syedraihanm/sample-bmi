@@ -44,6 +44,7 @@ app.post("/bmi", (req,res)=>{
     }
     else{
         advice = "Consult a Doctor and reduce weight";
+    }
 
     res.json({
         bmi: bmi.toFixed(2),
